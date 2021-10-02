@@ -24,11 +24,14 @@ class _PaymentHistoryScreenState extends State<PaymentHistoryScreen> {
       body: Column(
         children: [
           Container(
-            // decoration: BoxDecoration(
-            //     border: Border.all(
-            //   width: 2,
-            //   color: Colors.grey,
-            // )),
+            decoration: BoxDecoration(
+                color: Colors.grey[100],
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                      color: Colors.grey[50],
+                      blurRadius: 10.0,
+                      offset: Offset(0.0, 0.50))
+                ]),
             height: 70,
             width: MediaQuery.of(context).size.width,
             child: Padding(
@@ -37,19 +40,28 @@ class _PaymentHistoryScreenState extends State<PaymentHistoryScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    "Period",
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+                    "Period :",
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.grey[700]),
                   ),
                   SizedBox(
                     width: 6,
                   ),
                   DropdownButton(
+                    elevation: 8,
+                    focusColor: Colors.deepOrange,
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.grey[700]),
                     value: _value,
                     items: [
                       DropdownMenuItem(
-                        child: Text("First Item",
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w500)),
+                        child: Text(
+                          "First Item",
+                        ),
                         value: 1,
                       ),
                       DropdownMenuItem(
@@ -67,24 +79,17 @@ class _PaymentHistoryScreenState extends State<PaymentHistoryScreen> {
               ),
             ),
           ),
-          Divider(
-            thickness: 1,
-            color: Colors.grey,
-          ),
-          SizedBox(
-            height: 5,
-          ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(2.0),
               child: ListView.builder(
                   itemCount: 3,
                   itemBuilder: (context, index) {
                     return Container(
                       margin: EdgeInsets.all(6),
-                      height: 250,
+                      height: 200,
                       decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black),
+                          border: Border.all(color: Colors.grey, width: 2),
                           borderRadius: BorderRadius.circular(15.0)),
                       child: Center(
                         child: Text("payment Container"),
