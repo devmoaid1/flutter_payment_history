@@ -12,7 +12,7 @@ class PaymentRepository {
   final rest = RestService();
 
   Future<List<Payment>> getAllPayments() async {
-    final listJson = await rest.get('payment');
+    final listJson = await rest.get('payments');
 
     return (listJson as List)
         .map((itemJson) => Payment.fromJson(itemJson))
@@ -20,7 +20,7 @@ class PaymentRepository {
   }
 
   Future<List<Payment>> getPaymentsByMonth({String month}) async {
-    final listJson = await rest.get('payment/$month');
+    final listJson = await rest.get('payments/$month');
 
     return (listJson as List)
         .map((itemJson) => Payment.fromJson(itemJson))

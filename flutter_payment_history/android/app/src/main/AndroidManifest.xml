@@ -2,6 +2,7 @@
     package="com.example.flutter_payment_history">
    <application
         android:label="flutter_payment_history"
+        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

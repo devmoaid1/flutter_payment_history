@@ -2,7 +2,7 @@ class Payment {
   int amount;
   String type;
   String logo;
-  DateTime paymentDate;
+  String paymentDate;
   String paymentName;
   String id;
 

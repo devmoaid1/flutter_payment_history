@@ -9,8 +9,8 @@ class RestService {
 
   RestService._constructor();
 
-  Uri baseUrl(String endPoint) =>
-      Uri.parse("http://10.0.2.2:5001/votiship/us-central1/app/$endPoint");
+  Uri baseUrl(String endPoint) => Uri.parse(
+      "http://10.0.2.2:5001/flutter-payment-history/us-central1/app/$endPoint");
 
   Future get(String endpoint) async {
     final response = await http.get(baseUrl(endpoint));
@@ -18,7 +18,7 @@ class RestService {
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     }
-    throw response;
+    throw response.statusCode;
   }
 
   Future post(String endpoint, {dynamic data}) async {
