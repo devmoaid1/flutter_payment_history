@@ -7,7 +7,8 @@ class PaymentBloc {
   final PaymentRepository _paymentRepository = new PaymentRepository();
   final BehaviorSubject<List<Payment>> _subject = new BehaviorSubject();
 
-  Observable<List<Payment>> get paymentObservable=>_subject.stream;
+  Stream<List<Payment>> get paymentObservable => _subject.stream;
+
   getAllPayments() async {
     final List<Payment> payments = await _paymentRepository.getAllPayments();
     _subject.sink.add(payments);
@@ -22,5 +23,6 @@ class PaymentBloc {
   dispose() {
     _subject.close();
   }
-
 }
+
+final paymentBloc = new PaymentBloc();
