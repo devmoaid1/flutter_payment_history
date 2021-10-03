@@ -79,7 +79,11 @@ class _PaymentHistoryScreenState extends State<PaymentHistoryScreen> {
                     );
                   } else if (snapshot.hasData) {
                     var payments = snapshot.data;
-
+                    if (payments.length == 0) {
+                      return Center(
+                        child: Text("There are no Payments on this month"),
+                      );
+                    }
                     return Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(4.0),

@@ -27,7 +27,16 @@ class PaymentBloc {
   getFilteredPayments({String month}) async {
     final List<Payment> payments =
         await _paymentRepository.getPaymentsByMonth(month: month);
-    _subject.sink.add(payments);
+    final List<Payment> formattedPayments = [];
+
+    for (int i = 0; i < payments.length; i++) {
+      DateTime dt = DateTime.parse(payments[i].paymentDate);
+      final formatter = DateFormat('yyyy-MM-dd');
+      payments[i].paymentDate = formatter.format(dt);
+      formattedPayments.add(payments[i]);
+    }
+
+    _subject.sink.add(formattedPayments);
   }
 
   dispose() {
