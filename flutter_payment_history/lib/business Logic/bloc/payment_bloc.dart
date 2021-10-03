@@ -1,6 +1,7 @@
 import 'package:flutter_payment_history/data/Payment_Repostory.dart';
 import 'package:flutter_payment_history/data/models/Payment.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:intl/intl.dart';
 
 class PaymentBloc {
   List intialState = [];
@@ -9,9 +10,18 @@ class PaymentBloc {
 
   Stream<List<Payment>> get paymentObservable => _subject.stream;
 
-  getAllPayments() async {
+  getPayments() async {
     final List<Payment> payments = await _paymentRepository.getAllPayments();
-    _subject.sink.add(payments);
+    final List<Payment> formattedPayments = [];
+
+    for (int i = 0; i < payments.length; i++) {
+      DateTime dt = DateTime.parse(payments[i].paymentDate);
+      final formatter = DateFormat('yyyy-MM-dd');
+      payments[i].paymentDate = formatter.format(dt);
+      formattedPayments.add(payments[i]);
+    }
+
+    _subject.sink.add(formattedPayments);
   }
 
   getFilteredPayments({String month}) async {

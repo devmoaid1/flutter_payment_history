@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_payment_history/business%20Logic/bloc/payment_bloc.dart';
 
 List<DropdownMenuItem<String>> menuItems = [
   DropdownMenuItem(
@@ -66,6 +67,7 @@ class MonthsDropButton extends StatefulWidget {
 
 class _MonthsDropButtonState extends State<MonthsDropButton> {
   String _value = "All";
+
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
@@ -79,6 +81,11 @@ class _MonthsDropButtonState extends State<MonthsDropButton> {
         setState(() {
           _value = value;
         });
+        if (value == "All") {
+          paymentBloc..getPayments();
+        } else {
+          paymentBloc..getFilteredPayments(month: value);
+        }
       },
     );
   }
