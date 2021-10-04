@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_payment_history/business%20Logic/bloc/payment_bloc.dart';
+import 'package:flutter_payment_history/constants/constants.dart';
 import 'package:flutter_payment_history/data/models/Payment.dart';
 import 'package:flutter_payment_history/presentation/widgets/DropButton_widget.dart';
 import 'package:flutter_payment_history/presentation/widgets/Payment_Container.dart';
@@ -24,16 +25,9 @@ class _PaymentHistoryScreenState extends State<PaymentHistoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xffFF9F00),
+          backgroundColor: appOrange,
           title: Center(
-            child: Text(
-              "Payment History",
-              style: GoogleFonts.lato(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                  decorationThickness: 3,
-                  fontSize: 25),
-            ),
+            child: Text("Payment History", style: appBarTextStyle),
           ),
         ),
         body: Column(
@@ -104,7 +98,7 @@ class _PaymentHistoryScreenState extends State<PaymentHistoryScreen> {
                     }
                     return Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.all(4.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: buildPaymentsList(snapshot, payments),
                       ),
                     );
