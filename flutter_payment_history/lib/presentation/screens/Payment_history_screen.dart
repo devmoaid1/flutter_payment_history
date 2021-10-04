@@ -4,6 +4,7 @@ import 'package:flutter_payment_history/data/models/Payment.dart';
 import 'package:flutter_payment_history/presentation/widgets/DropButton_widget.dart';
 import 'package:flutter_payment_history/presentation/widgets/Payment_Container.dart';
 import 'package:flutter_payment_history/presentation/widgets/paymentList.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class PaymentHistoryScreen extends StatefulWidget {
   const PaymentHistoryScreen({Key key}) : super(key: key);
@@ -23,11 +24,15 @@ class _PaymentHistoryScreenState extends State<PaymentHistoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: Color(0xffFF9F00),
           title: Center(
             child: Text(
               "Payment History",
-              style: TextStyle(color: Colors.black),
+              style: GoogleFonts.lato(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                  decorationThickness: 3,
+                  fontSize: 25),
             ),
           ),
         ),
@@ -50,9 +55,9 @@ class _PaymentHistoryScreenState extends State<PaymentHistoryScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      "Period :",
-                      style: TextStyle(
-                          fontSize: 20,
+                      "Mounth :",
+                      style: GoogleFonts.raleway(
+                          fontSize: 22,
                           fontWeight: FontWeight.w800,
                           color: Colors.grey[700]),
                     ),
@@ -80,8 +85,21 @@ class _PaymentHistoryScreenState extends State<PaymentHistoryScreen> {
                   } else if (snapshot.hasData) {
                     var payments = snapshot.data;
                     if (payments.length == 0) {
-                      return Center(
-                        child: Text("There are no Payments on this month"),
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 200,
+                          ),
+                          Text(
+                            "There are no Payments on this month",
+                            style: GoogleFonts.lato(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w600,
+                                decorationThickness: 3,
+                                fontSize: 20),
+                          ),
+                        ],
                       );
                     }
                     return Expanded(

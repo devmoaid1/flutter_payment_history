@@ -13,10 +13,13 @@ class PaymentRepository {
 
   Future<List<Payment>> getAllPayments() async {
     final listJson = await rest.get('payments');
-
-    return (listJson as List)
-        .map((itemJson) => Payment.fromJson(itemJson))
-        .toList();
+    if (listJson.length == 0) {
+      return [];
+    } else {
+      return (listJson as List)
+          .map((itemJson) => Payment.fromJson(itemJson))
+          .toList();
+    }
   }
 
   Future<List<Payment>> getPaymentsByMonth({String month}) async {
