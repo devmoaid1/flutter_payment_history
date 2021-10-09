@@ -87,7 +87,7 @@ class PaymentConatiner extends StatelessWidget {
                         height: 3,
                       ),
                       Text(
-                        "#RX${payment.id.substring(9)}",
+                        "#RX${payment.id.substring(10)}",
                         style: GoogleFonts.raleway(
                             color: Colors.grey[600],
                             fontWeight: FontWeight.w600,
