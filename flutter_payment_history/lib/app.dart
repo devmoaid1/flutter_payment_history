@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_payment_history/presentation/screens/home_screen/home_screen.dart';
-import 'package:flutter_payment_history/presentation/screens/topup_screen/topup_screen.dart';
+import 'package:flutter_payment_history/constants/routes.dart';
 
-import 'presentation/screens/payment_history/Payment_history_screen.dart';
+import 'package:flutter_payment_history/router.dart';
 
+// ignore: must_be_immutable
 class MyApp extends StatelessWidget {
+  final AppRouter router = AppRouter();
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: TopUpScreen(),
+      initialRoute: homePage,
+      onGenerateRoute: router.createRoute,
     );
   }
 }

@@ -32,7 +32,9 @@ class TopUpScreen extends StatelessWidget {
                           IconlyLight.arrow_left_2,
                           size: 18,
                         ),
-                        onPressed: () {}),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        }),
                   ),
                   SizedBox(
                     width: 50,
