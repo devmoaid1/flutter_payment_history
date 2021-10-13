@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-final Color appOrange = Color(0xffFF9F00);
+final Color appOrange = Color(0xffF87508);
 
 final TextStyle appBarTextStyle = GoogleFonts.lato(
     color: Colors.white,

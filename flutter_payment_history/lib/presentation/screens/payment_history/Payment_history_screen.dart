@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_payment_history/business%20Logic/bloc/payment_bloc.dart';
+import 'package:flutter_payment_history/business%20Logic/blocs/payment_history_bloc/payment_history_bloc.dart';
+
 import 'package:flutter_payment_history/constants/constants.dart';
 import 'package:flutter_payment_history/data/models/Payment.dart';
-import 'package:flutter_payment_history/presentation/widgets/DropButton_widget.dart';
-import 'package:flutter_payment_history/presentation/widgets/Payment_Container.dart';
-import 'package:flutter_payment_history/presentation/widgets/paymentList.dart';
+
 import 'package:google_fonts/google_fonts.dart';
+
+import 'widgets/DropButton_widget.dart';
+import 'widgets/paymentList.dart';
 
 class PaymentHistoryScreen extends StatefulWidget {
   const PaymentHistoryScreen({Key key}) : super(key: key);
