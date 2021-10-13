@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_payment_history/presentation/screens/home_screen/home_screen.dart';
+import 'package:flutter_payment_history/presentation/screens/topup_screen/topup_screen.dart';
 
 import 'presentation/screens/payment_history/Payment_history_screen.dart';
 
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomeScreen(),
+      home: TopUpScreen(),
     );
   }
 }
