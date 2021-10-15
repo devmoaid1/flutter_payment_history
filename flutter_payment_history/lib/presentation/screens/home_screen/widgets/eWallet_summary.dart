@@ -16,7 +16,7 @@ class EWalletSummary extends StatelessWidget {
         Text(
           "eRider eWallet",
           style: GoogleFonts.poppins(
-              color: Colors.white, fontWeight: FontWeight.w600, fontSize: 15),
+              color: Colors.white, fontWeight: FontWeight.w700, fontSize: 15),
         ),
         SizedBox(
           height: 5,
@@ -54,7 +54,7 @@ class EWalletSummary extends StatelessWidget {
         Text(
           "on Hold:\$25.00",
           style: GoogleFonts.poppins(
-              color: Colors.white, fontWeight: FontWeight.w600, fontSize: 15),
+              color: Colors.white, fontWeight: FontWeight.w700, fontSize: 15),
         )
       ],
     );
