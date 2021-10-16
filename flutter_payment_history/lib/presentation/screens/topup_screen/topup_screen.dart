@@ -3,164 +3,12 @@ import 'package:flutter_payment_history/constants/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 
+import 'widgets/top_up_amounts.dart';
+
 class TopUpScreen extends StatelessWidget {
   String value = "FPX";
   TopUpScreen({Key key}) : super(key: key);
 
-  final List<Widget> amounts = [
-    Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      borderOnForeground: true,
-      child: Container(
-        height: 50,
-        child: Center(
-          child: Text(
-            "10",
-            style:
-                GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
-          ),
-        ),
-        decoration: BoxDecoration(
-            color: Colors.grey[200], borderRadius: BorderRadius.circular(10)),
-      ),
-    ),
-    Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      borderOnForeground: true,
-      child: Container(
-        height: 50,
-        child: Center(
-          child: Text(
-            "10",
-            style:
-                GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
-          ),
-        ),
-        decoration: BoxDecoration(
-            color: Colors.grey[200], borderRadius: BorderRadius.circular(10)),
-      ),
-    ),
-    Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      borderOnForeground: true,
-      child: Container(
-        height: 50,
-        child: Center(
-          child: Text(
-            "10",
-            style:
-                GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
-          ),
-        ),
-        decoration: BoxDecoration(
-            color: Colors.grey[200], borderRadius: BorderRadius.circular(10)),
-      ),
-    ),
-    Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      borderOnForeground: true,
-      child: Container(
-        height: 50,
-        child: Center(
-          child: Text(
-            "10",
-            style:
-                GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
-          ),
-        ),
-        decoration: BoxDecoration(
-            color: Colors.grey[200], borderRadius: BorderRadius.circular(10)),
-      ),
-    ),
-    Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      borderOnForeground: true,
-      child: Container(
-        height: 50,
-        child: Center(
-          child: Text(
-            "10",
-            style:
-                GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
-          ),
-        ),
-        decoration: BoxDecoration(
-            color: Colors.grey[200], borderRadius: BorderRadius.circular(10)),
-      ),
-    ),
-    Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      borderOnForeground: true,
-      child: Container(
-        height: 50,
-        child: Center(
-          child: Text(
-            "10",
-            style:
-                GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
-          ),
-        ),
-        decoration: BoxDecoration(
-            color: Colors.grey[200], borderRadius: BorderRadius.circular(10)),
-      ),
-    ),
-    Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      borderOnForeground: true,
-      child: Container(
-        height: 50,
-        child: Center(
-          child: Text(
-            "10",
-            style:
-                GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
-          ),
-        ),
-        decoration: BoxDecoration(
-            color: Colors.grey[200], borderRadius: BorderRadius.circular(10)),
-      ),
-    ),
-    Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      borderOnForeground: true,
-      child: Container(
-        height: 50,
-        child: Center(
-          child: Text(
-            "10",
-            style:
-                GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w600),
-          ),
-        ),
-        decoration: BoxDecoration(
-            color: Colors.grey[200], borderRadius: BorderRadius.circular(10)),
-      ),
-    ),
-  ];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -220,28 +68,28 @@ class TopUpScreen extends StatelessWidget {
               ])
             ])),
             SizedBox(
-              height: 50,
+              height: 10,
             ),
             Container(
+              width: double.infinity,
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    width: 130,
-                  ),
                   Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
                         "Amount",
-                        style: GoogleFonts.poppins(color: Colors.grey),
-                      ),
-                      SizedBox(
-                        height: 5,
+                        style: GoogleFonts.poppins(
+                            color: Colors.grey,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600),
                       ),
                       Text(
                         "\$ 10.00",
                         style: GoogleFonts.poppins(
-                            fontSize: 30, fontWeight: FontWeight.w700),
+                            fontSize: 30, fontWeight: FontWeight.w600),
                       )
                     ],
                   ),
@@ -249,21 +97,38 @@ class TopUpScreen extends StatelessWidget {
               ),
             ),
             buildSlider(),
-            // SizedBox(
-            //   height: 10,
-            // ),
-            Expanded(
-              child: Container(
-                height: 100,
-                padding: EdgeInsets.all(30),
-                child: GridView.count(
-                  crossAxisCount: 4,
-                  crossAxisSpacing: 3,
-                  mainAxisSpacing: 3,
-                  children: amounts,
+            TopUpAmounts(),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              height: 50.0,
+              margin: EdgeInsets.all(10),
+              child: RaisedButton(
+                onPressed: () {},
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(80.0)),
+                padding: EdgeInsets.all(0.0),
+                child: Ink(
+                  decoration: BoxDecoration(
+                      color: Color(0xffFF9F00),
+                      borderRadius: BorderRadius.circular(30.0)),
+                  child: Container(
+                    constraints:
+                        BoxConstraints(maxWidth: 250.0, minHeight: 50.0),
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Top Up",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700),
+                    ),
+                  ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       )),
@@ -281,13 +146,24 @@ class TopUpScreen extends StatelessWidget {
             width: 40,
           ),
           Container(
-            width: 320,
-            child: Slider(
-              min: 0,
-              max: 5000,
-              value: 30,
-              onChanged: null,
-              activeColor: appOrange,
+            width: 340,
+            child: SliderTheme(
+              data: SliderThemeData(
+                activeTrackColor: appOrange,
+                inactiveTrackColor: Colors.grey[100],
+                trackShape: RectangularSliderTrackShape(),
+                trackHeight: 4.0,
+                thumbColor: appOrange,
+                thumbShape: RoundSliderThumbShape(enabledThumbRadius: 12.0),
+                overlayColor: Colors.grey[100],
+                overlayShape: RoundSliderOverlayShape(overlayRadius: 28.0),
+              ),
+              child: Slider(
+                min: 0.0,
+                max: 5000.0,
+                value: 400.0,
+                onChanged: (value) {},
+              ),
             ),
           ),
         ],
