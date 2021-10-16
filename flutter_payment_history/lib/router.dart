@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_payment_history/presentation/screens/select_payment/select_payment_screen.dart';
 import 'package:flutter_payment_history/presentation/screens/topup_screen/topup_screen.dart';
 
 import 'constants/routes.dart';
@@ -14,6 +15,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (context) => TopUpScreen());
       case paymentHistoryScreen:
         return MaterialPageRoute(builder: (context) => PaymentHistoryScreen());
+      case selectPayment:
+        return MaterialPageRoute(builder: (context) => SelectPaymentScreen());
       default:
         return MaterialPageRoute(builder: (context) => HomeScreen());
     }

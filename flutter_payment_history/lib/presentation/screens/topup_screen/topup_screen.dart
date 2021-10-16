@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_payment_history/constants/constants.dart';
+import 'package:flutter_payment_history/constants/routes.dart';
+import 'package:flutter_payment_history/presentation/screens/shared_widgets/Header.dart';
+import 'package:flutter_payment_history/presentation/screens/shared_widgets/app_button.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 
@@ -22,7 +25,9 @@ class TopUpScreen extends StatelessWidget {
             SizedBox(
               height: 5,
             ),
-            buildHeader(context),
+            Header(
+              title: "Top Up eRider Wallet",
+            ),
             SizedBox(
               height: 20,
             ),
@@ -59,9 +64,14 @@ class TopUpScreen extends StatelessWidget {
                           style: GoogleFonts.poppins(
                               fontSize: 17, fontWeight: FontWeight.w600),
                         ),
-                        Icon(
-                          IconlyLight.arrow_right_2,
-                          size: 20,
+                        IconButton(
+                          icon: Icon(
+                            IconlyLight.arrow_right_2,
+                            size: 20,
+                          ),
+                          onPressed: () {
+                            Navigator.pushNamed(context, selectPayment);
+                          },
                         )
                       ],
                     ))
@@ -101,34 +111,9 @@ class TopUpScreen extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            Container(
-              height: 50.0,
-              margin: EdgeInsets.all(10),
-              child: RaisedButton(
-                onPressed: () {},
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(80.0)),
-                padding: EdgeInsets.all(0.0),
-                child: Ink(
-                  decoration: BoxDecoration(
-                      color: Color(0xffFF9F00),
-                      borderRadius: BorderRadius.circular(30.0)),
-                  child: Container(
-                    constraints:
-                        BoxConstraints(maxWidth: 250.0, minHeight: 50.0),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Top Up",
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.poppins(
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w700),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            AppButton(
+              title: "Top up",
+            )
           ],
         ),
       )),
@@ -170,52 +155,4 @@ class TopUpScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-Row buildHeader(BuildContext context) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.start,
-    children: [
-      SizedBox(
-        width: 20,
-      ),
-      Flexible(
-        flex: 1,
-        child: IconButton(
-            icon: Icon(
-              IconlyLight.arrow_left_2,
-              size: 20,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            }),
-      ),
-      SizedBox(
-        width: 50,
-      ),
-      Flexible(
-        flex: 7,
-        child: Center(
-          child: Text(
-            "Top Up eRider Wallet",
-            style:
-                GoogleFonts.poppins(fontWeight: FontWeight.w700, fontSize: 18),
-          ),
-        ),
-      ),
-      // SizedBox(
-      //   width: 10,
-      // ),
-      Flexible(
-        flex: 3,
-        child: TextButton(
-            onPressed: () {},
-            child: Text(
-              "Cancel",
-              style: GoogleFonts.poppins(
-                  color: appOrange, fontSize: 15, fontWeight: FontWeight.w600),
-            )),
-      ),
-    ],
-  );
 }
