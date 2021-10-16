@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_payment_history/business%20Logic/blocs/Top_Up_bloc/bloc/topupbloc_bloc.dart';
 import 'package:flutter_payment_history/constants/constants.dart';
 import 'package:flutter_payment_history/constants/routes.dart';
 import 'package:flutter_payment_history/presentation/screens/shared_widgets/Header.dart';
@@ -14,6 +16,8 @@ class TopUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TopupblocBloc bloc = BlocProvider.of<TopupblocBloc>(context);
+
     return SafeArea(
       child: Scaffold(
           body: Container(
@@ -31,83 +35,121 @@ class TopUpScreen extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            Container(
-                child: Row(children: [
-              SizedBox(
-                width: 35,
-              ),
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text(
-                  "Reload using",
-                  style: GoogleFonts.poppins(
-                      fontSize: 15, fontWeight: FontWeight.w700),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                    padding: EdgeInsets.all(10),
-                    width: 330,
-                    height: 50,
-                    decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(10),
-                            topLeft: Radius.circular(10),
-                            topRight: Radius.circular(10))),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "FPX",
-                          style: GoogleFonts.poppins(
-                              fontSize: 17, fontWeight: FontWeight.w600),
-                        ),
-                        IconButton(
-                          icon: Icon(
-                            IconlyLight.arrow_right_2,
-                            size: 20,
+            BlocBuilder<TopupblocBloc, TopupblocState>(
+              builder: (context, state) {
+                if (state is SelectedPayment) {
+                  final String method = state.selectedMethod;
+
+                  return Container(
+                      child: Row(children: [
+                    SizedBox(
+                      width: 35,
+                    ),
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Reload using",
+                            style: GoogleFonts.poppins(
+                                fontSize: 15, fontWeight: FontWeight.w700),
                           ),
-                          onPressed: () {
-                            Navigator.pushNamed(context, selectPayment);
-                          },
-                        )
-                      ],
-                    ))
-              ])
-            ])),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                              padding: EdgeInsets.all(10),
+                              width: 330,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                  color: Colors.grey[200],
+                                  borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(10),
+                                      bottomRight: Radius.circular(10),
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10))),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    method,
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  IconButton(
+                                    icon: Icon(
+                                      IconlyLight.arrow_right_2,
+                                      size: 20,
+                                    ),
+                                    onPressed: () {
+                                      Navigator.pushNamed(
+                                          context, selectPayment);
+                                    },
+                                  )
+                                ],
+                              ))
+                        ])
+                  ]));
+                }
+                return Container();
+              },
+            ),
             SizedBox(
               height: 10,
             ),
-            Container(
-              width: double.infinity,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Amount",
-                        style: GoogleFonts.poppins(
-                            color: Colors.grey,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600),
-                      ),
-                      Text(
-                        "\$ 10.00",
-                        style: GoogleFonts.poppins(
-                            fontSize: 30, fontWeight: FontWeight.w600),
-                      )
-                    ],
-                  ),
-                ],
-              ),
+            BlocBuilder<TopupblocBloc, TopupblocState>(
+              builder: (context, state) {
+                if (state is Amount) {
+                  return Container(
+                    width: double.infinity,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Amount",
+                              style: GoogleFonts.poppins(
+                                  color: Colors.grey,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            Text(
+                              "\$ ${state.amount.round()}",
+                              style: GoogleFonts.poppins(
+                                  fontSize: 30, fontWeight: FontWeight.w600),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                }
+
+                return Container();
+              },
             ),
-            buildSlider(),
-            TopUpAmounts(),
+            BlocBuilder<TopupblocBloc, TopupblocState>(
+              builder: (context, state) {
+                if (state is Amount) {
+                  return buildSlider(state.amount, bloc);
+                }
+                return Container();
+              },
+            ),
+            BlocBuilder<TopupblocBloc, TopupblocState>(
+              builder: (context, state) {
+                if (state is Amount) {
+                  return TopUpAmounts(
+                    bloc: bloc,
+                  );
+                }
+                return Container();
+              },
+            ),
             SizedBox(
               height: 20,
             ),
@@ -120,7 +162,7 @@ class TopUpScreen extends StatelessWidget {
     );
   }
 
-  Widget buildSlider() {
+  Widget buildSlider(double amount, TopupblocBloc bloc) {
     return Container(
       width: double.infinity,
       height: 30,
@@ -146,8 +188,10 @@ class TopUpScreen extends StatelessWidget {
               child: Slider(
                 min: 0.0,
                 max: 5000.0,
-                value: 400.0,
-                onChanged: (value) {},
+                value: amount,
+                onChanged: (double value) {
+                  bloc.add(SetAmount(amount: value));
+                },
               ),
             ),
           ),

@@ -47,7 +47,7 @@ class Header extends StatelessWidget {
           flex: 3,
           child: TextButton(
               onPressed: () {
-                Navigator.pushNamed(context, topUpScreen);
+                Navigator.pop(context);
               },
               child: Text(
                 "Cancel",

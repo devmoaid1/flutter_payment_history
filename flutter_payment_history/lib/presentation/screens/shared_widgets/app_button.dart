@@ -4,7 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AppButton extends StatelessWidget {
   final String title;
-  const AppButton({Key key, this.title}) : super(key: key);
+  Function handleOnTap;
+  AppButton({Key key, this.title, this.handleOnTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class AppButton extends StatelessWidget {
       height: 50.0,
       margin: EdgeInsets.all(10),
       child: RaisedButton(
-        onPressed: () {},
+        onPressed: handleOnTap,
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
         padding: EdgeInsets.all(0.0),

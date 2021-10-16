@@ -5,7 +5,7 @@ abstract class SelectpaymentState {}
 
 class SelectpaymentInitial extends SelectpaymentState {}
 
-class SelectedPayment extends SelectpaymentState {
-  String selectedMethod;
-  SelectedPayment({this.selectedMethod});
-}
+// class SelectedPayment extends SelectpaymentState {
+//   String selectedMethod;
+//   SelectedPayment({this.selectedMethod});
+// }

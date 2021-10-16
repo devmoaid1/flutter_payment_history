@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_payment_history/business%20Logic/blocs/Top_Up_bloc/bloc/topupbloc_bloc.dart';
 import 'package:flutter_payment_history/business%20Logic/blocs/select_payment_bloc/bloc/selectpayment_bloc.dart';
 import 'package:flutter_payment_history/constants/constants.dart';
 
@@ -7,17 +8,19 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PaymentsMethods extends StatelessWidget {
-  SelectpaymentBloc bloc;
-  PaymentsMethods({Key key, this.bloc}) : super(key: key);
+  TopupblocBloc bloc;
+  String method;
+  PaymentsMethods({Key key, this.bloc, this.method}) : super(key: key);
 
   List<String> methods = ["eRider Wallet", "Mastercard", "AMEX", "payPal"];
   @override
   Widget build(BuildContext context) {
-    this.bloc = BlocProvider.of<SelectpaymentBloc>(context);
-    return BlocBuilder<SelectpaymentBloc, SelectpaymentState>(
+    this.bloc = BlocProvider.of<TopupblocBloc>(context);
+    return BlocBuilder<TopupblocBloc, TopupblocState>(
       builder: (context, state) {
         if (state is SelectedPayment) {
           String currentMethod = state.selectedMethod;
+          method = currentMethod;
           return Expanded(
             child: Container(
               height: 140,

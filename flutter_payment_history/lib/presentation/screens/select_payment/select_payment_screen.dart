@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_payment_history/business%20Logic/blocs/Top_Up_bloc/bloc/topupbloc_bloc.dart';
 import 'package:flutter_payment_history/business%20Logic/blocs/select_payment_bloc/bloc/selectpayment_bloc.dart';
 import 'package:flutter_payment_history/constants/constants.dart';
+import 'package:flutter_payment_history/constants/routes.dart';
 import 'package:flutter_payment_history/presentation/screens/shared_widgets/Header.dart';
 import 'package:flutter_payment_history/presentation/screens/shared_widgets/app_button.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,11 +11,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'widgets/payments_method.dart';
 
 class SelectPaymentScreen extends StatelessWidget {
-  final SelectpaymentBloc bloc;
+  final TopupblocBloc bloc;
   const SelectPaymentScreen({Key key, this.bloc}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    String paymentMethod;
+
     return SafeArea(
         child: Scaffold(
       backgroundColor: Colors.white,
@@ -65,8 +70,21 @@ class SelectPaymentScreen extends StatelessWidget {
               color: Colors.grey[200],
             ),
             Spacer(),
-            AppButton(
-              title: "confirm",
+            BlocBuilder<TopupblocBloc, TopupblocState>(
+              builder: (context, state) {
+                if (state is SelectedPayment) {
+                  void handelConfirm() {
+                    print(state.selectedMethod);
+                    Navigator.pushNamed(context, topUpScreen);
+                  }
+
+                  return AppButton(
+                    title: "confirm",
+                    handleOnTap: handelConfirm,
+                  );
+                }
+                return Container();
+              },
             )
           ],
         ),
