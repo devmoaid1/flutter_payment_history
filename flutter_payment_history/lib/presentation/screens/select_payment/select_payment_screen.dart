@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_payment_history/business%20Logic/blocs/select_payment_bloc/bloc/selectpayment_bloc.dart';
 import 'package:flutter_payment_history/constants/constants.dart';
 import 'package:flutter_payment_history/presentation/screens/shared_widgets/Header.dart';
 import 'package:flutter_payment_history/presentation/screens/shared_widgets/app_button.dart';
@@ -7,7 +8,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'widgets/payments_method.dart';
 
 class SelectPaymentScreen extends StatelessWidget {
-  const SelectPaymentScreen({Key key}) : super(key: key);
+  final SelectpaymentBloc bloc;
+  const SelectPaymentScreen({Key key, this.bloc}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +54,9 @@ class SelectPaymentScreen extends StatelessWidget {
                 SizedBox(
                   width: 40,
                 ),
-                PaymentsMethods(),
+                PaymentsMethods(
+                  bloc: bloc,
+                ),
               ],
             ),
             Container(

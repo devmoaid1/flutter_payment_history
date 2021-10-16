@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_payment_history/constants/constants.dart';
+import 'package:flutter_payment_history/constants/routes.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 
@@ -23,7 +24,7 @@ class Header extends StatelessWidget {
                 size: 20,
               ),
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pushNamed(context, topUpScreen);
               }),
         ),
         SizedBox(
@@ -45,7 +46,9 @@ class Header extends StatelessWidget {
         Flexible(
           flex: 3,
           child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, topUpScreen);
+              },
               child: Text(
                 "Cancel",
                 style: GoogleFonts.poppins(
