@@ -13,6 +13,7 @@ class AppRouter {
   final TopupblocBloc topUpBloc = TopupblocBloc();
   AppRouter() {
     topUpBloc..add(SetPayment(method: "FPX"));
+    topUpBloc..add(SetAmount(amount: 10));
   }
 
   Route<dynamic> createRoute(RouteSettings settings) {
@@ -29,7 +30,7 @@ class AppRouter {
       case selectPayment:
         return MaterialPageRoute(
           builder: (context) => BlocProvider.value(
-            value: topUpBloc,
+            value: topUpBloc..add(SetPayment(method: "")),
             child: SelectPaymentScreen(
               bloc: topUpBloc,
             ),

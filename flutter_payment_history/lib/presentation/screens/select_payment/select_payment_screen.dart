@@ -16,7 +16,9 @@ class SelectPaymentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String paymentMethod;
+    void onBack() {
+      Navigator.pushNamed(context, topUpScreen);
+    }
 
     return SafeArea(
         child: Scaffold(
@@ -31,6 +33,7 @@ class SelectPaymentScreen extends StatelessWidget {
             ),
             Header(
               title: "Select Payment",
+              handleCancel: onBack,
             ),
             SizedBox(
               height: 20,

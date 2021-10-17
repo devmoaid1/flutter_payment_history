@@ -11,153 +11,136 @@ import 'package:iconly/iconly.dart';
 import 'widgets/top_up_amounts.dart';
 
 class TopUpScreen extends StatelessWidget {
-  String value = "FPX";
   TopUpScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final TopupblocBloc bloc = BlocProvider.of<TopupblocBloc>(context);
+    String paymentMethod = "FPX";
+    double topUpAmount = 10;
+
+    void onCancel() {
+      Navigator.pushNamed(context, homePage);
+    }
 
     return SafeArea(
-      child: Scaffold(
-          body: Container(
-        color: Colors.white,
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-          children: [
-            SizedBox(
-              height: 5,
-            ),
-            Header(
-              title: "Top Up eRider Wallet",
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            BlocBuilder<TopupblocBloc, TopupblocState>(
-              builder: (context, state) {
-                if (state is SelectedPayment) {
-                  final String method = state.selectedMethod;
+      child: Scaffold(body: BlocBuilder<TopupblocBloc, TopupblocState>(
+        builder: (context, state) {
+          if (state is SelectedPayment) {
+            paymentMethod = state.selectedMethod;
+          }
 
-                  return Container(
-                      child: Row(children: [
-                    SizedBox(
-                      width: 35,
-                    ),
-                    Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+          if (state is Amount) {
+            topUpAmount = state.amount;
+          }
+          return Container(
+            color: Colors.white,
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 5,
+                ),
+                Header(
+                  title: "Top Up eRider Wallet",
+                  handleCancel: onCancel,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                    child: Row(children: [
+                  SizedBox(
+                    width: 35,
+                  ),
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Reload using",
+                          style: GoogleFonts.poppins(
+                              fontSize: 15, fontWeight: FontWeight.w700),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                            padding: EdgeInsets.all(10),
+                            width: 330,
+                            height: 50,
+                            decoration: BoxDecoration(
+                                color: Colors.grey[200],
+                                borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(10),
+                                    bottomRight: Radius.circular(10),
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10))),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  paymentMethod,
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                IconButton(
+                                  icon: Icon(
+                                    IconlyLight.arrow_right_2,
+                                    size: 20,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, selectPayment);
+                                  },
+                                )
+                              ],
+                            ))
+                      ])
+                ])),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  width: double.infinity,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            "Reload using",
+                            "Amount",
                             style: GoogleFonts.poppins(
-                                fontSize: 15, fontWeight: FontWeight.w700),
+                                color: Colors.grey,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600),
                           ),
-                          SizedBox(
-                            height: 10,
+                          Text(
+                            "\$ ${topUpAmount.round()}",
+                            style: GoogleFonts.poppins(
+                                fontSize: 30, fontWeight: FontWeight.w600),
                           ),
-                          Container(
-                              padding: EdgeInsets.all(10),
-                              width: 330,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                  color: Colors.grey[200],
-                                  borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(10),
-                                      bottomRight: Radius.circular(10),
-                                      topLeft: Radius.circular(10),
-                                      topRight: Radius.circular(10))),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    method,
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                  IconButton(
-                                    icon: Icon(
-                                      IconlyLight.arrow_right_2,
-                                      size: 20,
-                                    ),
-                                    onPressed: () {
-                                      Navigator.pushNamed(
-                                          context, selectPayment);
-                                    },
-                                  )
-                                ],
-                              ))
-                        ])
-                  ]));
-                }
-                return Container();
-              },
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                buildSlider(topUpAmount, bloc),
+                TopUpAmounts(
+                  bloc: bloc,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                AppButton(
+                  title: "Top up",
+                )
+              ],
             ),
-            SizedBox(
-              height: 10,
-            ),
-            BlocBuilder<TopupblocBloc, TopupblocState>(
-              builder: (context, state) {
-                if (state is Amount) {
-                  return Container(
-                    width: double.infinity,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Amount",
-                              style: GoogleFonts.poppins(
-                                  color: Colors.grey,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                            Text(
-                              "\$ ${state.amount.round()}",
-                              style: GoogleFonts.poppins(
-                                  fontSize: 30, fontWeight: FontWeight.w600),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  );
-                }
-
-                return Container();
-              },
-            ),
-            BlocBuilder<TopupblocBloc, TopupblocState>(
-              builder: (context, state) {
-                if (state is Amount) {
-                  return buildSlider(state.amount, bloc);
-                }
-                return Container();
-              },
-            ),
-            BlocBuilder<TopupblocBloc, TopupblocState>(
-              builder: (context, state) {
-                if (state is Amount) {
-                  return TopUpAmounts(
-                    bloc: bloc,
-                  );
-                }
-                return Container();
-              },
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            AppButton(
-              title: "Top up",
-            )
-          ],
-        ),
+          );
+        },
       )),
     );
   }

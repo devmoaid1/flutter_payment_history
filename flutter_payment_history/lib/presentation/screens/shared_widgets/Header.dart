@@ -6,7 +6,8 @@ import 'package:iconly/iconly.dart';
 
 class Header extends StatelessWidget {
   final String title;
-  const Header({Key key, this.title}) : super(key: key);
+  final Function handleCancel;
+  const Header({Key key, this.title, this.handleCancel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +24,7 @@ class Header extends StatelessWidget {
                 IconlyLight.arrow_left_2,
                 size: 20,
               ),
-              onPressed: () {
-                Navigator.pushNamed(context, topUpScreen);
-              }),
+              onPressed: handleCancel),
         ),
         SizedBox(
           width: 50,
@@ -46,9 +45,7 @@ class Header extends StatelessWidget {
         Flexible(
           flex: 3,
           child: TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
+              onPressed: handleCancel,
               child: Text(
                 "Cancel",
                 style: GoogleFonts.poppins(
