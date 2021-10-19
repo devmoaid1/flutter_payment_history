@@ -6,6 +6,7 @@ import 'package:flutter_payment_history/data/models/Payment.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
+import 'widgets/header_bar.dart';
 import 'widgets/paymentList.dart';
 
 class PaymentHistoryScreen extends StatelessWidget {
@@ -20,43 +21,7 @@ class PaymentHistoryScreen extends StatelessWidget {
               backgroundColor: Colors.white,
               body: Column(
                 children: [
-                  Container(
-                    height: 100,
-                    width: double.infinity,
-                    color: Colors.transparent,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 35,
-                        ),
-                        Material(
-                          elevation: 1,
-                          shape: CircleBorder(),
-                          clipBehavior: Clip.antiAlias,
-                          child: Container(
-                            height: 60,
-                            width: 60,
-                            child: Image(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(
-                                  "https://image.freepik.com/free-photo/handsome-young-man-with-new-stylish-haircut_176420-19637.jpg"),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 80,
-                        ),
-                        Text(
-                          "History",
-                          style: GoogleFonts.poppins(
-                              fontSize: 16,
-                              color: appDarkBlue,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ],
-                    ),
-                  ), //AppBar
+                  HeaderBar(),
 
                   SizedBox(
                     height: 20,
@@ -117,7 +82,7 @@ class PaymentHistoryScreen extends StatelessWidget {
                                     if (!snapshot.hasData) {
                                       return Center(
                                         child: CircularProgressIndicator(
-                                          backgroundColor: Colors.orange,
+                                          backgroundColor: appOrange,
                                         ),
                                       );
                                     } else if (snapshot.hasError) {
@@ -126,74 +91,15 @@ class PaymentHistoryScreen extends StatelessWidget {
                                       );
                                     } else if (snapshot.hasData) {
                                       final payments = snapshot.data;
-                                      return ListView.builder(
-                                          padding: const EdgeInsets.all(8.0),
-                                          itemCount: payments.length,
-                                          itemBuilder: (context, index) =>
-                                              ListTile(
-                                                title: Text(
-                                                  payments[index].paymentName,
-                                                  style: GoogleFonts.poppins(
-                                                      color: appDarkBlue,
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.w700),
-                                                ),
-                                                subtitle: Text(
-                                                  "3:24 AM | ${payments[index].paymentDate}",
-                                                  style: GoogleFonts.poppins(
-                                                      color: Color(0xff7D8499),
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      fontSize: 14),
-                                                ),
-                                                trailing: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.end,
-                                                  children: [
-                                                    payments[index]
-                                                                .type ==
-                                                            "reload"
-                                                        ? Text(
-                                                            "+${payments[index].amount}",
-                                                            style: GoogleFonts
-                                                                .poppins(
-                                                                    fontSize:
-                                                                        17,
-                                                                    color: Colors
-                                                                        .green,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600))
-                                                        : Text(
-                                                            "-${payments[index].amount}",
-                                                            style: GoogleFonts.poppins(
-                                                                fontSize: 17,
-                                                                color:
-                                                                    Colors.red,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600)),
-                                                    Expanded(
-                                                      child: GestureDetector(
-                                                        onTap: () {},
-                                                        child: Text(
-                                                          "Details",
-                                                          style: GoogleFonts.poppins(
-                                                              color: Color(
-                                                                  0xff696E80),
-                                                              fontSize: 15,
-                                                              decoration:
-                                                                  TextDecoration
-                                                                      .underline),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ));
+                                      return buildPaymentsList(
+                                          snapshot, payments);
                                     }
-                                    return Container();
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                        backgroundColor: appOrange,
+                                        color: appOrange,
+                                      ),
+                                    );
                                   }),
                             ),
                           ],
@@ -212,105 +118,3 @@ class PaymentHistoryScreen extends StatelessWidget {
         ));
   }
 }
-// class PaymentHistoryScreen extends StatefulWidget {
-//   const PaymentHistoryScreen({Key key}) : super(key: key);
-
-//   @override
-//   _PaymentHistoryScreenState createState() => _PaymentHistoryScreenState();
-// }
-
-// class _PaymentHistoryScreenState extends State<PaymentHistoryScreen> {
-//   @override
-//   void initState() {
-//     super.initState();
-//     paymentBloc..getPayments();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         appBar: AppBar(
-//           backgroundColor: appOrange,
-//           title: Center(
-//             child: Text("Payment History", style: appBarTextStyle),
-//           ),
-//         ),
-//         body: Column(
-//           children: [
-//             Container(
-//               decoration: BoxDecoration(
-//                   color: Colors.grey[100],
-//                   boxShadow: <BoxShadow>[
-//                     BoxShadow(
-//                         color: Colors.grey[50],
-//                         blurRadius: 10.0,
-//                         offset: Offset(0.0, 0.50))
-//                   ]),
-//               height: 70,
-//               width: MediaQuery.of(context).size.width,
-//               child: Padding(
-//                 padding: const EdgeInsets.all(10.0),
-//                 child: Row(
-//                   mainAxisAlignment: MainAxisAlignment.start,
-//                   children: [
-//                     Text(
-//                       "Mounth :",
-//                       style: GoogleFonts.raleway(
-//                           fontSize: 22,
-//                           fontWeight: FontWeight.w800,
-//                           color: Colors.grey[700]),
-//                     ),
-//                     SizedBox(
-//                       width: 6,
-//                     ),
-//                     MonthsDropButton(),
-//                   ],
-//                 ),
-//               ),
-//             ),
-//             StreamBuilder(
-//                 stream: paymentBloc.paymentObservable,
-//                 builder: (context, AsyncSnapshot<List<Payment>> snapshot) {
-//                   if (!snapshot.hasData) {
-//                     return Center(
-//                       child: CircularProgressIndicator(
-//                         backgroundColor: Colors.orange,
-//                       ),
-//                     );
-//                   } else if (snapshot.hasError) {
-//                     return Center(
-//                       child: Text("something went wrong"),
-//                     );
-//                   } else if (snapshot.hasData) {
-//                     var payments = snapshot.data;
-//                     if (payments.length == 0) {
-//                       return Column(
-//                         mainAxisAlignment: MainAxisAlignment.center,
-//                         children: [
-//                           SizedBox(
-//                             height: 200,
-//                           ),
-//                           Text(
-//                             "There are no Payments on this month",
-//                             style: GoogleFonts.lato(
-//                                 color: Colors.black,
-//                                 fontWeight: FontWeight.w600,
-//                                 decorationThickness: 3,
-//                                 fontSize: 20),
-//                           ),
-//                         ],
-//                       );
-//                     }
-//                     return Expanded(
-//                       child: Padding(
-//                         padding: const EdgeInsets.all(8.0),
-//                         child: buildPaymentsList(snapshot, payments),
-//                       ),
-//                     );
-//                   }
-//                   return Container();
-//                 })
-//           ],
-//         ));
-//   }
-// }

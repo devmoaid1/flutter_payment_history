@@ -16,7 +16,7 @@ class PaymentBloc {
 
     for (int i = 0; i < payments.length; i++) {
       DateTime dt = DateTime.parse(payments[i].paymentDate);
-      final formatter = DateFormat.yMMMMd();
+      final formatter = DateFormat("yyyy-MM-dd hh:mm:ss");
       payments[i].paymentDate = formatter.format(dt);
       formattedPayments.add(payments[i]);
     }
