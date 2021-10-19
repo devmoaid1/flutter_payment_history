@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_payment_history/business%20Logic/blocs/payment_history_bloc/payment_history_bloc1.dart';
 
 import 'package:flutter_payment_history/presentation/screens/select_payment/select_payment_screen.dart';
 import 'package:flutter_payment_history/presentation/screens/topup_screen/topup_screen.dart';
@@ -14,6 +15,7 @@ class AppRouter {
   AppRouter() {
     topUpBloc..add(SetPayment(method: "FPX"));
     topUpBloc..add(SetAmount(amount: 10));
+    paymentBloc..getPayments();
   }
 
   Route<dynamic> createRoute(RouteSettings settings) {

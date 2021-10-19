@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_payment_history/business%20Logic/blocs/payment_history_bloc/payment_history_bloc.dart';
+import 'package:flutter_payment_history/business%20Logic/blocs/payment_history_bloc/payment_history_bloc1.dart';
 
 import 'package:flutter_payment_history/constants/constants.dart';
 import 'package:flutter_payment_history/data/models/Payment.dart';
 
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:intl/intl.dart';
 import 'widgets/DropButton_widget.dart';
 import 'widgets/paymentList.dart';
 
@@ -111,50 +111,91 @@ class PaymentHistoryScreen extends StatelessWidget {
                               width: 15,
                             ),
                             Expanded(
-                              child: ListView.builder(
-                                  padding: const EdgeInsets.all(8.0),
-                                  itemCount: 80,
-                                  itemBuilder: (context, index) => ListTile(
-                                        title: Text(
-                                          "TopUp",
-                                          style: GoogleFonts.poppins(
-                                              color: appDarkBlue,
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w700),
+                              child: StreamBuilder(
+                                  stream: paymentBloc.paymentObservable,
+                                  builder: (context,
+                                      AsyncSnapshot<List<Payment>> snapshot) {
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: CircularProgressIndicator(
+                                          backgroundColor: Colors.orange,
                                         ),
-                                        subtitle: Text(
-                                          "3:45 AM | Sep 29,2021",
-                                          style: GoogleFonts.poppins(
-                                              color: Color(0xff7D8499),
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 14),
-                                        ),
-                                        trailing: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: [
-                                            Text("+200",
-                                                style: GoogleFonts.poppins(
-                                                    fontSize: 15,
-                                                    color: Colors.green,
-                                                    fontWeight:
-                                                        FontWeight.w600)),
-                                            Expanded(
-                                              child: GestureDetector(
-                                                onTap: () {},
-                                                child: Text(
-                                                  "Details",
+                                      );
+                                    } else if (snapshot.hasError) {
+                                      return Center(
+                                        child: Text("something went wrong"),
+                                      );
+                                    } else if (snapshot.hasData) {
+                                      final payments = snapshot.data;
+                                      return ListView.builder(
+                                          padding: const EdgeInsets.all(8.0),
+                                          itemCount: payments.length,
+                                          itemBuilder: (context, index) =>
+                                              ListTile(
+                                                title: Text(
+                                                  payments[index].paymentName,
                                                   style: GoogleFonts.poppins(
-                                                      color: Color(0xff696E80),
-                                                      fontSize: 15,
-                                                      decoration: TextDecoration
-                                                          .underline),
+                                                      color: appDarkBlue,
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.w700),
                                                 ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      )),
+                                                subtitle: Text(
+                                                  "${DateFormat.jm().format(DateTime.parse(payments[index].paymentDate))} | ${payments[index].paymentDate}",
+                                                  style: GoogleFonts.poppins(
+                                                      color: Color(0xff7D8499),
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 14),
+                                                ),
+                                                trailing: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.end,
+                                                  children: [
+                                                    payments[index]
+                                                                .type ==
+                                                            "reload"
+                                                        ? Text(
+                                                            "+${payments[index].amount}",
+                                                            style: GoogleFonts
+                                                                .poppins(
+                                                                    fontSize:
+                                                                        15,
+                                                                    color: Colors
+                                                                        .green,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600))
+                                                        : Text(
+                                                            "-${payments[index].amount}",
+                                                            style: GoogleFonts.poppins(
+                                                                fontSize: 15,
+                                                                color:
+                                                                    Colors.red,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600)),
+                                                    Expanded(
+                                                      child: GestureDetector(
+                                                        onTap: () {},
+                                                        child: Text(
+                                                          "Details",
+                                                          style: GoogleFonts.poppins(
+                                                              color: Color(
+                                                                  0xff696E80),
+                                                              fontSize: 15,
+                                                              decoration:
+                                                                  TextDecoration
+                                                                      .underline),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ));
+                                    }
+                                    return Container();
+                                  }),
                             ),
                           ],
                         ),
