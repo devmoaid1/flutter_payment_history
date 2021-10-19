@@ -5,8 +5,7 @@ import 'package:flutter_payment_history/constants/constants.dart';
 import 'package:flutter_payment_history/data/models/Payment.dart';
 
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
-import 'widgets/DropButton_widget.dart';
+
 import 'widgets/paymentList.dart';
 
 class PaymentHistoryScreen extends StatelessWidget {
@@ -78,7 +77,7 @@ class PaymentHistoryScreen extends StatelessWidget {
                       tabs: [
                         Tab(
                           child: Text(
-                            "Orders",
+                            "Payments",
                             style: GoogleFonts.poppins(
                                 fontSize: 15,
                                 color: appDarkBlue,
@@ -87,7 +86,7 @@ class PaymentHistoryScreen extends StatelessWidget {
                         ),
                         Tab(
                           child: Text(
-                            "Payments",
+                            "Orders",
                             style: GoogleFonts.poppins(
                                 fontSize: 15,
                                 color: appDarkBlue,
@@ -141,7 +140,7 @@ class PaymentHistoryScreen extends StatelessWidget {
                                                           FontWeight.w700),
                                                 ),
                                                 subtitle: Text(
-                                                  "${DateFormat.jm().format(DateTime.parse(payments[index].paymentDate))} | ${payments[index].paymentDate}",
+                                                  "3:24 AM | ${payments[index].paymentDate}",
                                                   style: GoogleFonts.poppins(
                                                       color: Color(0xff7D8499),
                                                       fontWeight:
@@ -160,7 +159,7 @@ class PaymentHistoryScreen extends StatelessWidget {
                                                             style: GoogleFonts
                                                                 .poppins(
                                                                     fontSize:
-                                                                        15,
+                                                                        17,
                                                                     color: Colors
                                                                         .green,
                                                                     fontWeight:
@@ -169,7 +168,7 @@ class PaymentHistoryScreen extends StatelessWidget {
                                                         : Text(
                                                             "-${payments[index].amount}",
                                                             style: GoogleFonts.poppins(
-                                                                fontSize: 15,
+                                                                fontSize: 17,
                                                                 color:
                                                                     Colors.red,
                                                                 fontWeight:
@@ -199,9 +198,12 @@ class PaymentHistoryScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                        ListView.builder(
-                            itemCount: 5,
-                            itemBuilder: (context, index) => Text("Payments"))
+                        Center(
+                            child: Text(
+                          "Here is List of orders",
+                          style: GoogleFonts.poppins(
+                              fontSize: 30, fontWeight: FontWeight.w600),
+                        ))
                       ],
                     ),
                   )
